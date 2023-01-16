@@ -15,7 +15,7 @@
     # folder to copy ssl certs from (built into EE or mounted at runtime)
     certandkeysourcefolder: "/certs/"
     # folder to create to deploy ssl certs to
-    certandkeydestfolder: "/certs/"
+    certandkeydestfolder: "/etc/pki/tls/certs/"
     # name of certificate, delete if using self-signed
     cert_name: "CERT.cer"
     # name of key, delete if using self-signed
