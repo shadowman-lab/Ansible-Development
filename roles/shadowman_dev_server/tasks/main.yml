@@ -14,30 +14,30 @@
 
 - name: Ensure certs directory exists
   ansible.builtin.file:
-    path: "{{ certandkeyfolder }}"
+    path: "{{ certandkeydestfolder }}"
     state: directory
     owner: root
     group: root
     mode: '0741'
-  when: cert_location is defined
+  when: cert_name is defined
 
 - name: Copy Cert
   ansible.builtin.copy:
-    src: /certs/shadowman_cert.cer
-    dest: "{{ certandkeyfolder }}{{ cert_location }}"
+    src: "{{ certandkeysourcefolder }}{{ cert_name }}"
+    dest: "{{ certandkeydestfolder }}{{ cert_name }}"
     owner: root
     group: wheel
     mode: '0644'
-  when: cert_location is defined
+  when: cert_name is defined
 
 - name: Copy Key
   ansible.builtin.copy:
-    src: /certs/shadowman_private.key
-    dest: "{{ certandkeyfolder }}{{ key_location }}"
+    src: "{{ certandkeysourcefolder }}{{ key_name }}"
+    dest: "{{ certandkeydestfolder }}{{ key_name }}"
     owner: root
     group: wheel
     mode: '0644'
-  when: key_location is defined
+  when: key_name is defined
 
 - name: Apply our systemd service file
   ansible.builtin.template:

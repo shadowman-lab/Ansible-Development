@@ -12,12 +12,14 @@
     username: "ansible"
     # port for web server access
     dev_server_port: 443
-    # folder to create to deploy ssl certs
-    certandkeyfolder: "/certs/"
+    # folder to copy ssl certs from (built into EE or mounted at runtime)
+    certandkeysourcefolder: "/certs/"
+    # folder to create to deploy ssl certs to
+    certandkeydestfolder: "/certs/"
     # name of certificate, delete if using self-signed
-    cert_location: "CERT.cer"
+    cert_name: "CERT.cer"
     # name of key, delete if using self-signed
-    key_location: "KEY.key"
+    key_name: "KEY.key"
     # specific image to pull to development server and assign in ansible-navigator.yml
     ansible_image: "registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest"
     # Deploy an inventory, group variables and host variables files from files folder in role
