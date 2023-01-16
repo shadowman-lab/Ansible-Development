@@ -1,0 +1,231 @@
+---
+- name: Download code-server
+  ansible.builtin.get_url:
+    url: "{{ codeserver_url }}"
+    dest: /tmp/code-server.rpm
+    mode: '0440'
+
+- name: Install Code Server
+  ansible.builtin.dnf:
+    name: /tmp/code-server.rpm
+    state: present
+    disable_gpg_check: true
+  notify: Restart_Codeserver
+
+- name: Ensure certs directory exists
+  ansible.builtin.file:
+    path: "{{ certandkeyfolder }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0741'
+  when: cert_location is defined
+
+- name: Copy Cert
+  ansible.builtin.copy:
+    src: /certs/shadowman_cert.cer
+    dest: "{{ certandkeyfolder }}{{ cert_location }}"
+    owner: root
+    group: wheel
+    mode: '0644'
+  when: cert_location is defined
+
+- name: Copy Key
+  ansible.builtin.copy:
+    src: /certs/shadowman_private.key
+    dest: "{{ certandkeyfolder }}{{ key_location }}"
+    owner: root
+    group: wheel
+    mode: '0644'
+  when: key_location is defined
+
+- name: Apply our systemd service file
+  ansible.builtin.template:
+    src: code-server.service.j2
+    dest: /etc/systemd/system/code-server@{{ username }}.service
+    owner: "{{ username }}"
+    group: wheel
+    mode: '0744'
+  notify: Restart_Codeserver
+
+- name: Ensure custom facts directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.local/share/code-server/User/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Ensure settings directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/code-server/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Ensure ansible directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/ansible/localplaybooks/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Ensure ansible group vars folder exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/ansible/group_vars/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Ensure ansible host vars folder exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/ansible/host_vars/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Apply code server defaults
+  ansible.builtin.template:
+    src: settings.json.j2
+    dest: "/home/{{ username }}/.local/share/code-server/User/settings.json"
+    owner: "{{ username }}"
+    mode: '0644'
+
+- name: Ensure bashrc is set for user
+  ansible.builtin.template:
+    src: .bashrc.j2
+    dest: "/home/{{ username }}/.bashrc"
+    owner: "{{ username }}"
+    mode: '0644'
+
+- name: Apply code server settings
+  ansible.builtin.template:
+    src: config.yml.j2
+    dest: "/home/{{ username }}/.config/code-server/config.yaml"
+    owner: "{{ username }}"
+    mode: '0644'
+  notify: Restart_Codeserver
+
+- name: Deploy ansible-navigator config
+  ansible.builtin.template:
+    src: ansible-navigator.yml.j2
+    dest: "/home/{{ username }}/ansible/ansible-navigator.yml"
+    owner: "{{ username }}"
+    mode: '0644'
+
+- name: Deploy ansible.cfg
+  ansible.builtin.template:
+    src: ansible.cfg.j2
+    dest: "/home/{{ username }}/ansible/ansible.cfg"
+    owner: "{{ username }}"
+    mode: '0644'
+
+- name: Deploy inventory
+  ansible.builtin.copy:
+    src: inventory
+    dest: "/home/{{ username }}/ansible/inventory"
+    owner: "{{ username }}"
+    mode: '0644'
+  when: deploy_inventory
+
+- name: Deploy ansible group vars folder
+  ansible.builtin.copy:
+    src: files/group_vars/
+    dest: "/home/{{ username }}/ansible/group_vars/"
+    owner: "{{ username }}"
+    mode: '0644'
+  when: deploy_inventory
+
+- name: Deploy ansible host vars folder
+  ansible.builtin.copy:
+    src: files/host_vars/
+    dest: "/home/{{ username }}/ansible/host_vars/"
+    owner: "{{ username }}"
+    mode: '0644'
+  when: deploy_inventory
+
+- name: Install ansible extension
+  become_user: "{{ username }}"
+  become: true
+  ansible.builtin.command: "/bin/code-server --install-extension redhat.ansible"
+  register: result
+  changed_when: "'was successfully installed' in result.stdout"
+
+- name: Allow code-server to listen on port 443
+  community.general.capabilities:
+    path: /usr/lib/code-server/lib/node
+    capability: cap_net_bind_service=+ep
+    state: present
+  when: dev_server_port == 443
+
+- name: Daemon-reload, enable and start code-server
+  ansible.builtin.systemd:
+    name: code-server@{{ username }}
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Install podman and git
+  ansible.builtin.dnf:
+    name:
+      - podman
+      - git
+    state: present
+
+- name: Install ansible-navigator
+  become_user: "{{ username }}"
+  become: true
+  ansible.builtin.pip:
+    name: ansible-navigator
+    state: present
+    extra_args: --user
+
+- name: Allocate subuids for user
+  subuid:
+    user: "{{ username }}"
+  register: subuids
+
+- name: Allocate subgids for user
+  subgid:
+    group: "{{ username }}"
+  register: subgids
+
+- name: Ensure changes are applied to podman
+  ansible.builtin.command: podman system migrate
+  when: subuids is changed or subgids is changed
+
+- name: Pull EE
+  become: true
+  become_user: "{{ username }}"
+  containers.podman.podman_image:
+    name: "{{ ansible_image }}"
+    username: "{{ registry_user }}"
+    password: "{{ registry_pass }}"
+
+- name: Pull example repository
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: 'https://github.com/shadowman-lab/Ansible-Example.git'
+    dest: /home/{{ username }}/ansible/ansible-example
+    version: main
+  when: deploy_example_repo
+
+- name: Open up correct port
+  ansible.posix.firewalld:
+    port: "{{ dev_server_port }}/tcp"
+    permanent: true
+    state: enabled
+  notify: Restart_firewalld
+
+- name: Check if user is lingering
+  ansible.builtin.stat:
+    path: "/var/lib/systemd/linger/{{ username }}"
+  register: user_lingering
+
+- name: Enable lingering is needed
+  ansible.builtin.command: "loginctl enable-linger {{ username }}"
+  when: not user_lingering.stat.exists
+
+- name: Display Weblink
+  ansible.builtin.debug:
+    msg: "https://{{ inventory_hostname }}:{{ dev_server_port }}/?folder=/home/{{ username }}/ansible/"

@@ -1,0 +1,7 @@
+bind-addr: 0.0.0.0:{{ dev_server_port }}
+auth: none
+{% if cert_location is defined %}
+cert: true
+{% else %}
+cert: false
+{% endif %}

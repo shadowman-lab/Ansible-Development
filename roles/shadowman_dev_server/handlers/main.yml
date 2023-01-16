@@ -1,0 +1,12 @@
+---
+- name: Restart_Codeserver
+  ansible.builtin.systemd:
+    name: code-server@{{ username }}
+    enabled: true
+    state: restarted
+    daemon_reload: true
+
+- name: Restart_firewalld
+  ansible.builtin.service:
+    name: firewalld
+    state: restarted
