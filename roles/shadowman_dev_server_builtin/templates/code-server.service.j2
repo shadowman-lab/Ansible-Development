@@ -7,7 +7,7 @@ Type=simple
 User={{ username }}
 Restart=on-failure
 RestartSec=10
-{% if cert_location is defined %}
+{% if cert_name is defined %}
 ExecStart=/usr/bin/code-server --cert {{ certandkeydestfolder }}{{ cert_name }} --cert-key {{ certandkeydestfolder }}{{ key_name }}
 {% else %}
 ExecStart=/usr/bin/code-server
