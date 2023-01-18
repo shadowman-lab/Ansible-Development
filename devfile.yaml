@@ -14,7 +14,7 @@ components:
       env:
         - name: TERM
           value: xterm-256color
-      image: 'registry.home.glroland.com/paas/ansible-udi:2'
+      image: 'registry.home.glroland.com/paas/ansible-udi:3'
       memoryLimit: 2G
       memoryRequest: 512Mi
       mountSources: true
