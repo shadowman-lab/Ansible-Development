@@ -1,8 +1,8 @@
 #!/bin/sh
 
-REGISTRY=registry.home.glroland.com
-REPO=paas/ansible-udi
-VERSION=2
+REGISTRY=quay.io
+REPO=rhn_ssp_adworjan/ansibleubi
+VERSION=1
 
 docker buildx build --platform linux/amd64 -t $REGISTRY/$REPO:$VERSION .
 
