@@ -9,14 +9,14 @@ components:
         - /dev/null
       command:
         - /checode/entrypoint-volume.sh
-      cpuLimit: 500m
-      cpuRequest: 30m
+      cpuLimit: 4000m
+      cpuRequest: 500m
       env:
-        - name: HOME
-          value: /projects/
+        - name: TERM
+          value: xterm-256color
       image: 'registry.home.glroland.com/paas/ansible-udi:2'
-      memoryLimit: 1.59G
-      memoryRequest: 256Mi
+      memoryLimit: 2G
+      memoryRequest: 512Mi
       mountSources: true
       sourceMapping: /projects
     name: ansible
