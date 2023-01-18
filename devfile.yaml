@@ -1,0 +1,59 @@
+schemaVersion: 2.1.0
+metadata:
+  name: ansible-development
+components:
+  - container:
+      args:
+        - tail
+        - '-f'
+        - /dev/null
+      command:
+        - /checode/entrypoint-volume.sh
+      cpuLimit: 500m
+      cpuRequest: 30m
+      env:
+        - name: HOME
+          value: /projects/
+      image: 'registry.home.glroland.com/paas/ansible-udi:2'
+      memoryLimit: 1.59G
+      memoryRequest: 256Mi
+      mountSources: true
+      sourceMapping: /projects
+    name: ansible
+# commands:
+#   - exec:
+#       commandLine: molecule lint
+#       component: ansible
+#       label: 'Molecule: Lint'
+#       workingDir: /projects/ansible-role-tower-config
+#     id: molecule-lint
+#   - exec:
+#       commandLine: yamllint .
+#       component: ansible
+#       label: 'Yamllint: workshops'
+#       workingDir: /projects/workshops
+#     id: yamllint-workshops
+#   - exec:
+#       commandLine: ansible-playbook provision_lab.yml -e @sample_workshops/sample-vars-rhel.yml
+#       component: ansible
+#       label: 'Workshop: RHEL'
+#       workingDir: /projects/workshops/provisioner
+#     id: workshop-rhel
+#   - exec:
+#       commandLine: ansible-playbook provision_lab.yml -e @sample_workshops/sample-vars-networking.yml
+#       component: ansible
+#       label: 'Workshop: Networking'
+#       workingDir: /projects/workshops/provisioner
+#     id: workshop-networking
+#   - exec:
+#       commandLine: ansible-playbook provision_lab.yml -e @sample_workshops/sample-vars-security.yml
+#       component: ansible
+#       label: 'Workshop: Security'
+#       workingDir: /projects/workshops/provisioner
+#     id: workshop-security
+#   - exec:
+#       commandLine: ansible-playbook provision_lab.yml -e @sample_workshops/sample-vars-f5.yml
+#       component: ansible
+#       label: 'Workshop: F5'
+#       workingDir: /projects/workshops/provisioner
+#     id: workshop-f
