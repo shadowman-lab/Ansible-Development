@@ -13,7 +13,8 @@ For some reason with v2 of the Dockerfile, pyyaml isn't persisting and ansible c
 
 NEED TO RUN inside container:
 pip3 install pyyaml
-export TERM='xterm-256color'
+
+NOTE - this is only needed when running the container outside of OCP
 su user
 
 Then any ansible-navigator commands will work
