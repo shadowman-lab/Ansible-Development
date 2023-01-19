@@ -2,7 +2,7 @@
 
 REGISTRY=quay.io
 REPO=rhn_ssp_adworjan/ansibleubi
-VERSION=1
+VERSION=1.0
 
 docker buildx build --platform linux/amd64 -t $REGISTRY/$REPO:$VERSION .
 
