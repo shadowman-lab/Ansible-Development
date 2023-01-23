@@ -4,17 +4,15 @@ To build and test the image on a Mac ARM64 / new M1 processor, use Docker with t
   docker buildx build --platform linux/amd64 -t test .
 
 To test this image locally after build:
-  docker run --privileged -it test -c /bin/bash
+  docker run -it --platform linux/amd64 test -c /bin/bash
 
 
 KNOWN ISSUES:
 
-For some reason with v2 of the Dockerfile, pyyaml isn't persisting and ansible complains on startup about missing module.
+Removed --privileged from docker run but let me know if there continue to be issues.  This will impact use 
+of the container in DevSpaces if we leave it.
 
-NEED TO RUN inside container:
-pip3 install pyyaml
+podman run/ps/etc still not working
 
-NOTE - this is only needed when running the container outside of OCP
-su user
-
-Then any ansible-navigator commands will work
+entrypoint.sh is redundant between ansible-udi and runner.  Need to clean this script up and delete the one that
+does not align to our goals.
