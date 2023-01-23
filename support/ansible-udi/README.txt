@@ -12,7 +12,11 @@ KNOWN ISSUES:
 Removed --privileged from docker run but let me know if there continue to be issues.  This will impact use 
 of the container in DevSpaces if we leave it.
 
-podman run/ps/etc still not working
+podman run/ps/etc still not working.  Useful links and commands:
+https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md
+$ findmnt -o PROPAGATION /
+PROPAGATION
+shared
 
 entrypoint.sh is redundant between ansible-udi and runner.  Need to clean this script up and delete the one that
 does not align to our goals.
