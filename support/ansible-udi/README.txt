@@ -17,6 +17,7 @@ https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.
 $ findmnt -o PROPAGATION /
 PROPAGATION
 shared
+https://www.redhat.com/sysadmin/podman-inside-container
 
 entrypoint.sh is redundant between ansible-udi and runner.  Need to clean this script up and delete the one that
 does not align to our goals.
