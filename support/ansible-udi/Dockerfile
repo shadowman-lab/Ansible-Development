@@ -1,4 +1,4 @@
-FROM registry.redhat.io/ubi9:latest
+FROM registry.redhat.io/ubi8:latest
 USER root
 
 #######################################################################
@@ -24,7 +24,7 @@ RUN echo "export TERM='xterm-256color'" >> /home/user/.bashrc
 ##   ansible pre-reqs 
 #######################################################################
 RUN dnf install -y python3-pip python3-devel gcc
-RUN pip install --upgrade pip
+RUN pip3 install --upgrade pip
 
 
 #######################################################################
@@ -33,9 +33,9 @@ RUN pip install --upgrade pip
 ## - Install and configure the development tools needed for efficient
 ##   Ansible development within the DevSpaces (or other) IDE
 #######################################################################
-RUN pip install ansible-navigator
-RUN pip install ansible
-RUN pip install ansible-lint
+RUN pip3 install ansible-navigator
+RUN pip3 install ansible
+RUN pip3 install ansible-lint
 
 
 #######################################################################
@@ -44,10 +44,10 @@ RUN pip install ansible-lint
 ## - The rootless podman installation steps are taken from the standard
 ##   UDI image Docker.
 #######################################################################
-RUN dnf install -y container-tools podman-docker fuse-overlayfs
+RUN dnf install -y podman podman-docker podman-plugins fuse-overlayfs
 RUN dnf -y reinstall shadow-utils
 RUN touch /etc/containers/nodocker
-RUN usermod --add-subuids 200000-201000 --add-subgids 200000-201000 user
+#RUN usermod --add-subuids 100000-165536 --add-subgids 100000-165536 user
 
 # Set up environment variables to note that this is
 # not starting with usernamespace and default to
@@ -61,6 +61,10 @@ RUN mkdir -p /var/lib/shared/overlay-images /var/lib/shared/overlay-layers; \
     touch /var/lib/shared/overlay-images/images.lock; \
     touch /var/lib/shared/overlay-layers/layers.lock
 
+# But use VFS since we were not able to make Fuse work yet...
+RUN mkdir -p "${HOME}"/.config/containers && \
+   (echo '[storage]';echo 'driver = "vfs"') > "${HOME}"/.config/containers/storage.conf
+
 
 #######################################################################
 ## Container Execution / Startup
@@ -71,6 +75,6 @@ WORKDIR /projects
 
 #USER user
 
-ADD entrypoint.sh /entrypoint.sh
-ENTRYPOINT [ "/entrypoint.sh" ]
-CMD tail -f /dev/null
+#ADD entrypoint.sh /entrypoint.sh
+#ENTRYPOINT [ "/entrypoint.sh" ]
+#CMD tail -f /dev/null
