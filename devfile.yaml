@@ -26,7 +26,6 @@ components:
 #      sourceMapping: /projects
   - name: ansible
     kubernetes:
-      deployByDefault: true
       inlined: |
         apiVersion: v1
         kind: List
