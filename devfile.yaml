@@ -2,24 +2,73 @@ schemaVersion: 2.1.0
 metadata:
   name: ansible-development
 components:
-  - container:
-      args:
-        - tail
-        - '-f'
-        - /dev/null
-#      command:
-#        - /entrypoint-volume.sh
-      cpuLimit: 4000m
-      cpuRequest: 500m
-      env:
-        - name: TERM
-          value: xterm-256color
-      image: 'registry.redhat.io/devspaces/udi-rhel8:3.3-37.1673517018'
-      memoryLimit: 2G
-      memoryRequest: 512Mi
-      mountSources: true
-      sourceMapping: /projects
-    name: ansible
+
+#   - container:
+#       args:
+#         - tail
+#         - '-f'
+#         - /dev/null
+# #      command:
+# #        - /entrypoint-volume.sh
+#       cpuLimit: 4000m
+#       cpuRequest: 500m
+#       env:
+#         - name: TERM
+#           value: xterm-256color
+#       image: 'registry.redhat.io/devspaces/udi-rhel8:3.3-37.1673517018'
+#       memoryLimit: 2G
+#       memoryRequest: 512Mi
+#       mountSources: true
+#       sourceMapping: /projects
+#     name: ansible
+
+#      mountSources: true
+#      sourceMapping: /projects
+  - name: ansible
+    kubernetes:
+      deployByDefault: true
+      inlined: |
+        apiVersion: v1
+        kind: List
+        items:
+        - apiVersion: v1
+          kind: Pod
+          metadata:
+            name: tutorial-tools
+            labels:
+              app: tools
+          spec:
+            containers:
+            - name: terminal
+              image: registry.redhat.io/devspaces/udi-rhel8:3.3-37.1673517018
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TERM
+                  value: xterm-256color
+              securityContext:
+                privileged: false
+                runAsUser: 1000
+              resources:
+                limits: 
+                  cpu: "4000m"
+                  memory: 2Gi
+                requests:
+                  cpu: "500m"
+                  memory: "512Mi"
+                workingDir: /opt/developer
+              volumeMounts:
+                - name: kubeconfig
+                  mountPath: /opt/developer/.kube
+            volumes:
+              - name: kubeconfig
+                emptyDir: {}
+              - name: kubeconfig-tpl
+                configMap:
+                  name: tutorial-tools-kubeconfig
+                  items:
+                  - key: config
+                    path: config
+
 # commands:
 #   - exec:
 #       commandLine: molecule lint
