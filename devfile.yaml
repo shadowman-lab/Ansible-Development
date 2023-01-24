@@ -7,14 +7,14 @@ components:
         - tail
         - '-f'
         - /dev/null
-      command:
-        - /entrypoint-volume.sh
+#      command:
+#        - /entrypoint-volume.sh
       cpuLimit: 4000m
       cpuRequest: 500m
       env:
         - name: TERM
           value: xterm-256color
-      image: 'registry.redhat.io/devspaces/udi-rhel8@sha256:ac5aaba0bbf1caa7f23205ab837e3029ff9f605211ebf38bdf4b9f1b8fb1ba83'
+      image: 'registry.redhat.io/devspaces/udi-rhel8:3.3-37.1673517018'
       memoryLimit: 2G
       memoryRequest: 512Mi
       mountSources: true
