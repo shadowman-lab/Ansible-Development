@@ -21,3 +21,22 @@ https://www.redhat.com/sysadmin/podman-inside-container
 
 entrypoint.sh is redundant between ansible-udi and runner.  Need to clean this script up and delete the one that
 does not align to our goals.
+
+
+GUIDANCE FROM ENGINEERING ON PODMAN INCEPTION ISSUE:
+
+support for podman or docker in DS is coming... https://issues.redhat.com/browse/CRW-3367 you can install DevSpaces 3.5 CI 
+builds today using the latest dsc binary or the installDevSpaces shell script (step one of this demo)
+https://github.com/redhat-developer/devspaces-demo#preparation 
+https://github.com/redhat-developer/devspaces-chectl/releases/tag/3.5.0-CI-dsc-assets
+
+
+I think there's some gotchas / configuration needed - see 
+https://che.eclipseprojects.io/2022/10/10/@mloriedo-building-container-images.html
+
+this might be the simpler workaround for enabling container builds: 
+https://github.com/redhat-developer/devspaces-demo/blob/main/3-enable-container-build.sh 
+(step 3 of the above demo)
+
+note that the article/blog is from Oct 2022, but the demo is more recent
+
