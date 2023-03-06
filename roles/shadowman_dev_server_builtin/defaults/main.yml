@@ -1,5 +1,5 @@
 ---
-version: "4.10.0"
+version: "4.10.1"
 codeserver_url: https://github.com/coder/code-server/releases/download/v{{ version }}/code-server-{{ version }}-amd64.rpm
 deploy_inventory: true
 deploy_example_repo: true
