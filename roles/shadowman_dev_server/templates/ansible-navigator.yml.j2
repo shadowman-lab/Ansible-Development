@@ -1,6 +1,10 @@
 ---
 ansible-navigator:
   app: welcome
+  ansible:
+    inventory:
+      entries:
+        - /home/{{ username }}/ansible/inventory
   execution-environment:
     container-engine: podman
     image: {{ ansible_image }}

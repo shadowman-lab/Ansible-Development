@@ -112,13 +112,6 @@
     owner: "{{ username }}"
     mode: '0644'
 
-- name: Deploy ansible.cfg
-  ansible.builtin.template:
-    src: ansible.cfg.j2
-    dest: "/home/{{ username }}/ansible/ansible.cfg"
-    owner: "{{ username }}"
-    mode: '0644'
-
 - name: Deploy inventory
   ansible.builtin.copy:
     src: inventory
