@@ -26,6 +26,8 @@
     deploy_inventory: true
     # Deploy an example repository with a basic role structure
     deploy_example_repo: true
+    # Deploy an example repository using ansible-galaxy init
+    deploy_ansiblegalaxy_repo: false
 
   roles:
     - shadowman_dev_server

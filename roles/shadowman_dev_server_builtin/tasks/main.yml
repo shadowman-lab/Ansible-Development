@@ -208,6 +208,21 @@
     version: main
   when: deploy_example_repo
 
+- name: Create an example role structure using ansible-galaxy
+  ansible.builtin.command:
+    cmd: ansible-galaxy init ansible-example
+    chdir: /tmp/
+  delegate_to: localhost
+  when: deploy_ansiblegalaxy_repo
+  
+- name: Copy Example Structure to VM
+  ansible.builtin.copy:
+    src: /tmp/ansible-example/
+    dest: /home/{{ username }}/ansible/ansible-example
+    owner: "{{ username }}"
+    mode: '0644'
+  when: deploy_ansiblegalaxy_repo
+
 - name: Open up correct port
   ansible.builtin.command: "firewall-cmd --permanent --zone=public --add-port={{ dev_server_port }}/tcp"
   register: firewall

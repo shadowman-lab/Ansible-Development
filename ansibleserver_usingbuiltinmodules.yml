@@ -24,8 +24,10 @@
     ansible_image: "registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest"
     # Deploy an inventory, group variables and host variables files from files folder in role
     deploy_inventory: true
-    # Deploy an example repository with a basic role structure
+    # Deploy an example repository with a basic role structure from git
     deploy_example_repo: true
+    # Deploy an example repository using ansible-galaxy init
+    deploy_ansiblegalaxy_repo: false
 
   roles:
     - shadowman_dev_server_builtin
