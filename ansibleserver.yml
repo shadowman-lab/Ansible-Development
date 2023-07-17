@@ -8,6 +8,8 @@
     registry_user: "USERNAME"
     # password for private automation hub for EE or to password protected registry
     registry_pass: "PASSWORD"
+    # password for code server, remove variable if not using auth with code server
+    code_server_pass: "PASSWORD"
     # username for development server
     username: "ansible"
     # port for web server access
