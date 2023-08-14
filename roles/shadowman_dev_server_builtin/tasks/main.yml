@@ -214,7 +214,7 @@
     chdir: /tmp/
   delegate_to: localhost
   when: deploy_ansiblegalaxy_repo
-  
+
 - name: Copy Example Structure to VM
   ansible.builtin.copy:
     src: /tmp/ansible-example/
