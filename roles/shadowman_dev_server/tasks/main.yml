@@ -157,11 +157,12 @@
     state: started
     daemon_reload: true
 
-- name: Install podman and git
+- name: Install podman and git and python 3.9
   ansible.builtin.dnf:
     name:
       - podman
       - git
+      - python39
     state: present
 
 - name: Install ansible-navigator
@@ -171,6 +172,7 @@
     name: ansible-navigator
     state: present
     extra_args: --user
+    executable: pip3.9
 
 - name: Allocate subuids for user
   subuid:
