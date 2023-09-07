@@ -238,4 +238,4 @@
 
 - name: Display Weblink
   ansible.builtin.debug:
-    msg: "https://{{ inventory_hostname }}:{{ dev_server_port }}/?folder=/home/{{ username }}/ansible/"
+    msg: "https://{{ inventory_hostname }}:{{ dev_server_port }}/?folder=/home/{{ username }}/ansible"
