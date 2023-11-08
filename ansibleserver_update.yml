@@ -1,0 +1,7 @@
+---
+- name: Update Ansible development server
+  hosts: all
+  become: true
+
+  roles:
+    - shadowman_dev_server_update

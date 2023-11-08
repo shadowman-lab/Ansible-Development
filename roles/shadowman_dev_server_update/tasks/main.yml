@@ -1,0 +1,25 @@
+---
+- name: Download New Code-server
+  ansible.builtin.get_url:
+    url: "{{ codeserver_url }}"
+    dest: /tmp/code-server.rpm
+    mode: '0440'
+
+- name: Install New Code-server
+  ansible.builtin.dnf:
+    name: /tmp/code-server.rpm
+    state: present
+    disable_gpg_check: true
+
+- name: Find all running services
+  ansible.builtin.service_facts:
+
+- name: Restart all running code-server to upgrade
+  ansible.builtin.systemd:
+    name: "{{ item.value.name }}"
+    state: restarted
+    daemon_reload: true
+  when:
+    - '"code-server" in item.value.name'
+    - item.value.state == "running"
+  loop: "{{ ansible_facts.services | dict2items }}"
