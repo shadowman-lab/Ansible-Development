@@ -30,6 +30,8 @@
     deploy_example_repo: true
     # Deploy an example repository using ansible-galaxy init
     deploy_ansiblegalaxy_repo: false
+    # Set version to be latest or the version you want to install
+    version: latest
 
   roles:
     - shadowman_dev_server

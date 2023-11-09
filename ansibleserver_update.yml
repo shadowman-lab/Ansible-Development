@@ -3,5 +3,9 @@
   hosts: all
   become: true
 
+  vars:
+  # Set version to be latest or the version you want to update to
+    version: latest
+
   roles:
     - shadowman_dev_server_update
