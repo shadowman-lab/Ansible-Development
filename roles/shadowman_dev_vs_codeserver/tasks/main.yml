@@ -1,0 +1,162 @@
+---
+
+- name: Ensure VS code-server directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.vscode-server/bin/{{ commit_id }}/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Ensure podman config location exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/containers/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+  when: additionalimagestores is defined
+
+- name: Download and extract Remote VS Code Server
+  ansible.builtin.unarchive:
+    src: "https://update.code.visualstudio.com/commit:{{ commit_id }}/server-linux-x64/stable"
+    dest: /home/{{ username }}/.vscode-server/bin/{{ commit_id }}/
+    remote_src: true
+    extra_opts:
+      - --strip-components 1
+
+- name: Ensure ansible directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/ansible/localplaybooks/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Ensure ansible group vars folder exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/ansible/group_vars/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Ensure ansible host vars folder exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/ansible/host_vars/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
+- name: Apply VS Remove Code Server defaults to Machine directory
+  ansible.builtin.template:
+    src: settings.json.j2
+    dest: "/home/{{ username }}/.vscode-server/data/Machine/settings.json"
+    owner: "{{ username }}"
+    mode: '0644'
+
+- name: Deploy ansible-navigator config
+  ansible.builtin.template:
+    src: ansible-navigator.yml.j2
+    dest: "/home/{{ username }}/ansible/ansible-navigator.yml"
+    owner: "{{ username }}"
+    mode: '0644'
+
+- name: Deploy inventory
+  ansible.builtin.copy:
+    src: inventory
+    dest: "/home/{{ username }}/ansible/inventory"
+    owner: "{{ username }}"
+    mode: '0644'
+  when: deploy_inventory
+
+- name: Deploy ansible group vars folder
+  ansible.builtin.copy:
+    src: files/group_vars/
+    dest: "/home/{{ username }}/ansible/group_vars/"
+    owner: "{{ username }}"
+    mode: '0644'
+  when: deploy_inventory
+
+- name: Deploy ansible host vars folder
+  ansible.builtin.copy:
+    src: files/host_vars/
+    dest: "/home/{{ username }}/ansible/host_vars/"
+    owner: "{{ username }}"
+    mode: '0644'
+  when: deploy_inventory
+
+- name: Install ansible extension
+  become_user: "{{ username }}"
+  become: true
+  ansible.builtin.command: "//home/{{ username }}/.vscode-server/bin/{{ commit_id }}/bin/code-server --install-extension redhat.ansible"
+  register: result
+  changed_when: "'was successfully installed' in result.stdout"
+
+- name: Install podman and git and python 3.9
+  ansible.builtin.dnf:
+    name:
+      - podman
+      - git
+      - python39
+    state: present
+
+- name: Setup shared storage for podman images
+  ansible.builtin.template:
+    src: storage.conf.j2
+    dest: "/home/{{ username }}/.config/containers/storage.conf"
+    owner: "{{ username }}"
+    mode: '0644'
+  when: additionalimagestores is defined
+
+- name: Install ansible-navigator
+  become_user: "{{ username }}"
+  become: true
+  ansible.builtin.pip:
+    name: ansible-navigator
+    state: present
+    extra_args: --user
+    executable: pip3.9
+
+- name: Allocate subuids for user
+  subuid:
+    user: "{{ username }}"
+  register: subuids
+
+- name: Allocate subgids for user
+  subgid:
+    group: "{{ username }}"
+  register: subgids
+
+- name: Ensure changes are applied to podman
+  ansible.builtin.command: podman system migrate
+  when: subuids is changed or subgids is changed
+
+- name: Pull example repository
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: 'https://github.com/shadowman-lab/Ansible-Example.git'
+    dest: /home/{{ username }}/ansible/ansible-example
+    version: main
+  when: deploy_example_repo
+
+- name: Create an example role structure using ansible-galaxy
+  ansible.builtin.command:
+    cmd: ansible-galaxy init ansible-example
+    chdir: /tmp/
+  delegate_to: localhost
+  when: deploy_ansiblegalaxy_repo
+
+- name: Copy Example Structure to VM
+  ansible.builtin.copy:
+    src: /tmp/ansible-example/
+    dest: /home/{{ username }}/ansible/ansible-example
+    owner: "{{ username }}"
+    mode: '0644'
+  when: deploy_ansiblegalaxy_repo
+
+- name: Check if user is lingering
+  ansible.builtin.stat:
+    path: "/var/lib/systemd/linger/{{ username }}"
+  register: user_lingering
+
+- name: Enable lingering is needed
+  ansible.builtin.command: "loginctl enable-linger {{ username }}"
+  when: not user_lingering.stat.exists
