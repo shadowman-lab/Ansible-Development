@@ -27,11 +27,7 @@
   when: exists.rc == 1
 
 - name: Ensure correct permissions if image was pulled
-  ansible.builtin.file:
-    path: "{{ additionalimagestores }}"
-    state: directory
-    owner: root
-    group: root
-    mode: a+rx
-    recurse: true
+  ansible.builtin.command: "chmod -R a+rx {{ additionalimagestores }}"
+  register: permissions
   when: ee.rc == 0
+  changed_when: permissions.rc == 0
