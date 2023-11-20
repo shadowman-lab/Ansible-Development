@@ -1,0 +1,10 @@
+---
+- name: Set up ansible configuration for VSCode Remote Extension
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+
+    - name: Debug var
+      ansible.builtin.debug:
+        var: awx_execution_node
