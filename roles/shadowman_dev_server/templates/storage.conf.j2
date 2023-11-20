@@ -1,0 +1,13 @@
+[storage]
+  driver = "overlay"
+[storage.options]
+    size = ""
+    remap-uids = ""
+    remap-gids = ""
+    ignore_chown_errors = ""
+    remap-user = ""
+    remap-group = ""
+    skip_mount_home = ""
+    mount_program = "/usr/bin/fuse-overlayfs"
+    mountopt = ""
+additionalimagestores = [ "{{ additionalimagestores }}",]

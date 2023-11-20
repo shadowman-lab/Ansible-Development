@@ -71,6 +71,14 @@
     state: directory
     owner: "{{ username }}"
 
+- name: Ensure podman config location exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/containers/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+  when: additionalimagestores is defined
+
 - name: Ensure ansible directory exists
   ansible.builtin.file:
     path: "/home/{{ username }}/ansible/localplaybooks/"
@@ -174,6 +182,14 @@
       - python39
     state: present
 
+- name: Setup shared storage for podman images
+  ansible.builtin.template:
+    src: storage.conf.j2
+    dest: "/home/{{ username }}/.config/containers/storage.conf"
+    owner: "{{ username }}"
+    mode: '0644'
+  when: additionalimagestores is defined
+
 - name: Install ansible-navigator
   become_user: "{{ username }}"
   become: true
@@ -204,6 +220,7 @@
     name: "{{ ansible_image }}"
     username: "{{ registry_user }}"
     password: "{{ registry_pass }}"
+  when: additionalimagestores is not defined
 
 - name: Pull example repository
   become: true
