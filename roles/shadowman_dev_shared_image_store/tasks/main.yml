@@ -1,0 +1,27 @@
+---
+
+- name: Ensure shared image directory exists
+  ansible.builtin.file:
+    path: "{{ additionalimagestores }}"
+    state: directory
+    owner: root
+    group: root
+    mode: a+rx
+    recurse: true
+
+- name: Install podman
+  ansible.builtin.dnf:
+    name: podman
+    state: present
+
+- name: Check if EE present
+  ansible.builtin.command: "podman --root {{ additionalimagestores }} image exists {{ ansible_image }}"
+  register: exists
+  changed_when: exists.rc == 1
+  failed_when: exists.rc > 1
+
+- name: Pull EE only if not present
+  ansible.builtin.command: "podman pull --root {{ additionalimagestores }} --creds={{ registry_user }}:{{ registry_pass }} {{ ansible_image }}"
+  register: ee
+  changed_when: ee.rc == 0
+  when: exists.rc == 1
