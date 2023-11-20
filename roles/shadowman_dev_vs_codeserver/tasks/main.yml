@@ -7,6 +7,13 @@
     state: directory
     owner: "{{ username }}"
 
+- name: Ensure VS code-server data directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}//.vscode-server/data/Machine/"
+    recurse: true
+    state: directory
+    owner: "{{ username }}"
+
 - name: Ensure podman config location exists
   ansible.builtin.file:
     path: "/home/{{ username }}/.config/containers/"
@@ -21,7 +28,7 @@
     dest: /home/{{ username }}/.vscode-server/bin/{{ commit_id }}/
     remote_src: true
     extra_opts:
-      - --strip-components 1
+      - --strip-components=1
 
 - name: Ensure ansible directory exists
   ansible.builtin.file:
@@ -48,6 +55,13 @@
   ansible.builtin.template:
     src: settings.json.j2
     dest: "/home/{{ username }}/.vscode-server/data/Machine/settings.json"
+    owner: "{{ username }}"
+    mode: '0644'
+
+- name: Ensure bashrc is set for user
+  ansible.builtin.template:
+    src: .bashrc.j2
+    dest: "/home/{{ username }}/.bashrc"
     owner: "{{ username }}"
     mode: '0644'
 

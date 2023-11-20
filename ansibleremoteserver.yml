@@ -1,13 +1,13 @@
 ---
 - name: Set up ansible configuration for VSCode Remote Extension
-  hosts: all
+  hosts: alex.shadowman.dev
   become: true
 
   vars:
     # username for development server
-    username: "ansible"
+    username: "adworjan"
     # specific image to assign in ansible-navigator.yml and ansible-extension
-    ansible_image: "registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:latest"
+    ansible_image: "towerpah.shadowman.dev/shadowmanee:20231118T050325"
     # Deploy an inventory, group variables and host variables files from files folder in role
     deploy_inventory: true
     # Deploy an example repository with a basic role structure
