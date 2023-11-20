@@ -142,6 +142,24 @@
   ansible.builtin.command: podman system migrate
   when: subuids is changed or subgids is changed
 
+- name: Check if EE present
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command: "podman image exists {{ ansible_image }}"
+  register: exists
+  changed_when: exists.rc == 1
+  failed_when: exists.rc > 1
+
+- name: Pull EE only if not present
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command: "podman pull --creds={{ registry_user }}:{{ registry_pass }} {{ ansible_image }}"
+  register: ee
+  changed_when: ee.rc == 0
+  when:
+    - exists.rc == 1
+    - additionalimagestores is not defined
+
 - name: Pull example repository
   become: true
   become_user: "{{ username }}"
