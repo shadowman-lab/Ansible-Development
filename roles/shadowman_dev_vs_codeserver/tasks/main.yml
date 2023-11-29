@@ -1,5 +1,4 @@
 ---
-
 - name: Ensure VS code-server directory exists
   ansible.builtin.file:
     path: "/home/{{ username }}/.vscode-server/bin/{{ commit_id }}/"
