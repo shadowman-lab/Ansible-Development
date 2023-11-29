@@ -1,5 +1,4 @@
 ---
-
 - name: Ensure shared image directory exists
   ansible.builtin.file:
     path: "{{ additionalimagestores }}"
