@@ -20,7 +20,7 @@
     # Deploy an example repository using ansible-galaxy init
     deploy_ansiblegalaxy_repo: false
     # location of additional image store for shared storage, must be previously set up https://access.redhat.com/solutions/6206192. Remove if not using
-    additionalimagestores: "/var/lib/mycontainers-shared"
+    additionalimagestores: "/var/lib/myee-shared"
     # Install VS Code locally on your laptop and then commit ID can be found in VS Code under "About Visual Studio Code"
     commit_id: "1a5daa3a0231a0fbba4f14db7ec463cf99d7768e"
 

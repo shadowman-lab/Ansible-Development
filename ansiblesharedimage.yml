@@ -11,7 +11,7 @@
     # specific image to pull
     ansible_image: "registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:latest"
     # location of additional image store for shared storage
-    additionalimagestores: "/var/lib/mycontainers-shared"
+    additionalimagestores: "/var/lib/myee-shared"
 
   roles:
     - shadowman_dev_shared_image_store
