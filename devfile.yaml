@@ -10,3 +10,12 @@ components:
       cpuRequest: 250m
       cpuLimit: 2000m
     name: ansible
+commands:
+  - id: install-ansible-extension
+    exec:
+      commandLine: 'code-oss --install-extension redhat.ansible'
+      workingDir: ${PROJECT_SOURCE}
+      group:
+        kind: build
+        isDefault: true
+      component: ansible
