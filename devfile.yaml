@@ -4,16 +4,11 @@ metadata:
 components:
   - container:
       args: ['tail', '-f', '/dev/null']
-      env:
-        - name: TERM
-          value: xterm-256color
-      image: 'quay.io/rhn_ssp_adworjan/ansibleee:1.0'
+      image: 'quay.io/rhn_ssp_adworjan/ansibleee:1.1'
       memoryRequest: 256M
       memoryLimit: 6Gi
       cpuRequest: 250m
       cpuLimit: 2000m
-      mountSources: true
-      sourceMapping: /projects
     name: ansible
 # commands:
 #   - exec:
