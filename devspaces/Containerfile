@@ -10,7 +10,7 @@ WORKDIR /tmp
 COPY shells /etc/shells
 COPY .bashrc /home/runner/.bashrc
 
-RUN printf "export CONTAINER_NAME=$ansibleee\n" >> /home/runner/.bashrc
+RUN printf "export CONTAINER_NAME=ansibleee\n" >> /home/runner/.bashrc
 
 RUN for dir in \
       /home/runner \
