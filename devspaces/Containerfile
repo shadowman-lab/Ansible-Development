@@ -1,0 +1,30 @@
+# replace with your EE
+ARG EE_BASE_IMAGE=towerpah.shadowman.dev/shadowmanee:latest
+FROM $EE_BASE_IMAGE
+
+LABEL ansible-execution-environment=true
+
+USER root
+WORKDIR /tmp
+
+COPY shells /etc/shells
+COPY .bashrc /home/runner/.bashrc
+
+RUN printf "export CONTAINER_NAME=$ansibleee\n" >> /home/runner/.bashrc
+
+RUN for dir in \
+      /home/runner \
+      /home/runner/.ansible \
+      /home/runner/.ansible/tmp \
+      /runner \
+      /home/runner \
+      /runner/env \
+      /runner/inventory \
+      /runner/project \
+      /runner/artifacts ; \
+    do mkdir -m 0775 -p $dir ; chmod -R g+rwx $dir ; chgrp -R root $dir ; done && \
+    for file in \
+      /home/runner/.ansible/galaxy_token \
+      /etc/passwd \
+      /etc/group ; \
+    do touch $file ; chmod g+rw $file ; chgrp root $file ; done
