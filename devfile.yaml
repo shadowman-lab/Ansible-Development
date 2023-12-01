@@ -13,9 +13,12 @@ components:
 commands:
   - id: install-ansible-extension
     exec:
-      commandLine: 'code-oss --install-extension redhat.ansible'
+      commandLine: '/checode/checode-linux-libc/bin/remote-cli/code-oss --install-extension redhat.ansible'
       workingDir: ${PROJECT_SOURCE}
       group:
         kind: build
         isDefault: true
       component: ansible
+events:
+  postStart:
+    - "install-ansible-extension"
