@@ -1,20 +1,15 @@
-schemaVersion: 2.1.0
+schemaVersion: 2.2.0
 metadata:
   name: ansible-development
 components:
   - container:
-      args:
-        - tail
-        - '-f'
-        - /dev/null
-      command:
-        - /checode/entrypoint-volume.sh
+      args: ['tail', '-f', '/dev/null']
       cpuLimit: 4000m
       cpuRequest: 500m
       env:
         - name: TERM
           value: xterm-256color
-      image: 'quay.io/rhn_ssp_adworjan/ansibleubi:1.0'
+      image: 'quay.io/rhn_ssp_adworjan/ansibleee:1.0'
       memoryLimit: 2G
       memoryRequest: 512Mi
       mountSources: true
