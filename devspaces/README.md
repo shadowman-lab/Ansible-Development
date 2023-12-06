@@ -1,9 +1,20 @@
 # Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces
-Run 
 
+1) Modify the ContainerFile to utilize your Execution Environment. Make any changes to .bashrc for your terminal requirements.
+
+2) Run 
+```
 podman build --tag YOURIMAGENAMEANDTAG -f Containerfile 
+```
+For example
+```
+podman build --tag quay.io/rhn_ssp_adworjan/ansibleee:1.0 -f Containerfile 
+```
+to modify your existing EE to work in Dev Spaces. 
 
-to modify your existing EE to work in Dev Spaces. Then push the image to your container registry. Utilize the devfile.yaml and adjust for your registry and image
+3) Push the image to your container registry
+
+4) Modify the devfile.yaml and adjust for your registry and image
 
 # Set Up Git Config:
 
