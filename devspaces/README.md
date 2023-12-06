@@ -1,11 +1,11 @@
-# Modifying permissions for Ansible-Lint and bash to work in CodeReady workspaces
+# Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces
 Run 
 
 podman build --tag YOURIMAGENAMEANDTAG -f Containerfile 
 
 to modify your existing EE to work in CodeReady workspaces. Then push the image to your container registry. Utilize the devfile.yaml and adjust for your registry and image
 
-# Set up Git Config:
+# Set Up Git Config:
 
 1) Login to OpenShift
 
@@ -29,13 +29,13 @@ metadata:
 data:
   gitconfig: "[user] \n  name = <git_user_name> \n  email = <git_user_email>" 
 ```
-Visit https://<openshift_dev_spaces_fqdn>/api/kubernetes/namespace to get your OpenShift Dev Spaces user namespace as name and update your git_user_name and git_user_email
+Visit https://<openshift_dev_spaces_fqdn>/api/kubernetes/namespace to get your OpenShift Dev Spaces user_namespace and update your git_user_name and git_user_email
 
 5) Click Create
 
 ### Note if a workspace-userdata-gitconfig-configmap already exists, just update your existing config map per the YAML above
 
-# Pull from password protected Registry
+# Pull From Password Protected Registry
 
 1) Login to OpenShift Dev Space
 
@@ -47,7 +47,7 @@ Visit https://<openshift_dev_spaces_fqdn>/api/kubernetes/namespace to get your O
 
 5) Click Add
 
-# Pull from password protected repository
+# Pull From Password Protected Repository
 
 1) Login to OpenShift Dev Space
 
