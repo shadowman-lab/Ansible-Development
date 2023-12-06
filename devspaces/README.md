@@ -66,3 +66,18 @@ Your Git user name and email should appear in the output.
 4) Provide a token name, select the provider, update the provider endpoint, and enter in your token
 
 5) Click Add
+
+# Auto Install Extensions:
+
+1) At the root of your repository, create a .vscode folder with a file called extensions.json
+
+2) Add any desired extensions with the full extension name
+
+```
+{
+    "recommendations": [
+      "redhat.ansible",
+      "redhat.vscode-yaml"
+    ]
+}
+```
