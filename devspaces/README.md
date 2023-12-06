@@ -3,7 +3,7 @@ Run
 
 podman build --tag YOURIMAGENAMEANDTAG -f Containerfile 
 
-to modify your existing EE to work in CodeReady workspaces. Then push the image to your container registry. Utilize the devfile.yaml and adjust for your registry and image
+to modify your existing EE to work in Dev Spaces. Then push the image to your container registry. Utilize the devfile.yaml and adjust for your registry and image
 
 # Set Up Git Config:
 
