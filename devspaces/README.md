@@ -33,6 +33,14 @@ Visit https://<openshift_dev_spaces_fqdn>/api/kubernetes/namespace to get your O
 
 5) Click Create
 
+6) You can verify once a new workspace is started by opening a new terminal and running
+
+```
+git config --get-regexp user.*
+```
+
+Your Git user name and email should appear in the output.
+
 ### Note if a workspace-userdata-gitconfig-configmap already exists, just update your existing config map per the YAML above
 
 # Pull From Password Protected Registry
