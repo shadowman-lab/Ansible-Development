@@ -45,7 +45,7 @@ Your Git user name and email should appear in the output.
 
 # Pull From Password Protected Registry
 
-1) Login to OpenShift Dev Space
+1) Login to OpenShift Dev Spaces
 
 2) Click username in top right and select User Preferences
 
@@ -57,7 +57,7 @@ Your Git user name and email should appear in the output.
 
 # Pull From Password Protected Repository
 
-1) Login to OpenShift Dev Space
+1) Login to OpenShift Dev Spaces
 
 2) Click username in top right and select User Preferences
 
