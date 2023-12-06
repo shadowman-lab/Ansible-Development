@@ -63,7 +63,7 @@ Your Git user name and email should appear in the output.
 
 3) Under Personal Access Tokens select Add Token
 
-4) Provide a token name, select the provider, update the provider endpoint, and enter in your token
+4) Provide a token name, select the provider, update the provider endpoint, and enter in your Personal Access Token acquired from your repository provider in Token
 
 5) Click Add
 
