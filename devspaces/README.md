@@ -91,7 +91,7 @@ Your Git user name and email should appear in the output.
 
 5) Click Add
 
-# Pull From Password Protected Repository
+# Pull From Password Protected Repository / Set Up PAT To Push To Repository
 
 1) Login to OpenShift Dev Spaces
 
@@ -102,6 +102,22 @@ Your Git user name and email should appear in the output.
 4) Provide a token name, select the provider, update the provider endpoint, and enter in your Personal Access Token acquired from your repository provider in Token
 
 5) Click Add
+
+# Set Up SSH Keys
+
+## OpenShift Dev Spaces >=3.10
+
+1) Login to OpenShift Dev Spaces
+
+2) Click username in top right and select User Preferences
+
+3) Under SSH Keys select Add SSH Key
+
+4) Select Upload next to Private Key, browse and select your Private Key
+
+5) Select Upload next to Public Key, browse and select your Public Key
+
+6) Click Add
 
 # Auto Install Extensions:
 
