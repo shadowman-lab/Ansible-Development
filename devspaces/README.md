@@ -78,6 +78,7 @@ git config --get-regexp user.*
 ```
 
 Your Git user name and email should appear in the output.
+
 # Pull From Password Protected Registry
 
 1) Login to OpenShift Dev Spaces
