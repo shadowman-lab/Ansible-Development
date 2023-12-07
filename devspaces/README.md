@@ -16,6 +16,9 @@ to modify your existing EE to work in Dev Spaces.
 
 4) Modify the devfile.yaml and adjust for your registry and image
 
+## Note: You could also take the two COPY steps and two RUN steps and include them in your execution-environment.yml to make this part of your EE build process
+https://github.com/shadowman-lab/Ansible-PAH/tree/main/roles/build_shadowmandevspaces
+
 # Set Up Git Config:
 
 1) Login to OpenShift
