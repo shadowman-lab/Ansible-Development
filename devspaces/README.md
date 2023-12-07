@@ -67,8 +67,17 @@ If running OpenShift Dev Spaces >=3.10
 
 3) Select Gitconfig
 
-4) Click the Pencil icon next to name and e-mail to update for your Git name and e-mail
+4) Click the Pencil icon next to name, update your Git name, and click the check icon
 
+5) Click the Pencil icon next to email, update your Git email, and click the check icon
+
+6) You can verify once a new workspace is started by opening a new terminal and running
+
+```
+git config --get-regexp user.*
+```
+
+Your Git user name and email should appear in the output.
 # Pull From Password Protected Registry
 
 1) Login to OpenShift Dev Spaces
