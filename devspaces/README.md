@@ -1,4 +1,12 @@
-# Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces
+# Software defined development environment on Kubernetes
+
+OpenShift Dev Spaces Docs: https://access.redhat.com/documentation/en-us/red_hat_openshift_dev_spaces/3.10
+
+Eclipse Che Docs: https://eclipse.dev/che/docs/stable/overview/introduction-to-eclipse-che/
+
+Eclipse Che Repo: https://github.com/eclipse-che/che-server
+
+# Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces or Eclipse Che
 
 1) Modify the ContainerFile to utilize your Execution Environment. Make any changes to .bashrc for your terminal requirements.
 
@@ -21,7 +29,7 @@ https://github.com/shadowman-lab/Ansible-PAH/tree/main/roles/build_shadowmandevs
 
 # Set Up Git Config:
 
-## OpenShift Dev Spaces <3.10
+## OpenShift Dev Spaces <3.10 or Eclipse Che <7.77
 
 1) Login to OpenShift
 
@@ -59,7 +67,7 @@ Your Git user name and email should appear in the output.
 
 ### Note if a workspace-userdata-gitconfig-configmap already exists, just update your existing config map per the YAML above
 
-## OpenShift Dev Spaces >=3.10
+## OpenShift Dev Spaces >=3.10 or Eclipse Che >=7.77
 
 1) Login to OpenShift Dev Spaces
 
@@ -105,7 +113,7 @@ Your Git user name and email should appear in the output.
 
 # Set Up SSH Keys
 
-## OpenShift Dev Spaces >=3.10
+## OpenShift Dev Spaces >=3.10 or Eclipse Che >=7.77
 
 1) Login to OpenShift Dev Spaces
 
