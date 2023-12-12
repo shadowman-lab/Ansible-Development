@@ -29,7 +29,7 @@ https://github.com/shadowman-lab/Ansible-PAH/tree/main/roles/build_shadowmandevs
 
 # Set Up Git Config:
 
-## OpenShift Dev Spaces <3.10 or Eclipse Che <7.77
+## OpenShift Dev Spaces <3.10 or Eclipse Che <7.75
 
 1) Login to OpenShift
 
@@ -67,7 +67,7 @@ Your Git user name and email should appear in the output.
 
 ### Note if a workspace-userdata-gitconfig-configmap already exists, just update your existing config map per the YAML above
 
-## OpenShift Dev Spaces >=3.10 or Eclipse Che >=7.77
+## OpenShift Dev Spaces >=3.10 or Eclipse Che >=7.75
 
 1) Login to OpenShift Dev Spaces
 
