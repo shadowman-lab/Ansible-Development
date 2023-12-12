@@ -31,7 +31,7 @@ https://github.com/shadowman-lab/Ansible-PAH/tree/main/roles/build_shadowmandevs
 
 ## OpenShift Dev Spaces <3.10 or Eclipse Che <7.75
 
-1) Login to OpenShift
+1) Login to OpenShift or your Kubernetes Cluster
 
 2) Go to Workloads, ConfigMaps
 
@@ -69,7 +69,7 @@ Your Git user name and email should appear in the output.
 
 ## OpenShift Dev Spaces >=3.10 or Eclipse Che >=7.75
 
-1) Login to OpenShift Dev Spaces
+1) Login to OpenShift Dev Spaces or Eclipse Che
 
 2) Click username in top right and select User Preferences
 
@@ -89,7 +89,7 @@ Your Git user name and email should appear in the output.
 
 # Pull From Password Protected Registry
 
-1) Login to OpenShift Dev Spaces
+1) Login to OpenShift Dev Spaces or Eclipse Che
 
 2) Click username in top right and select User Preferences
 
@@ -101,7 +101,7 @@ Your Git user name and email should appear in the output.
 
 # Pull From Password Protected Repository / Set Up PAT To Push To Repository
 
-1) Login to OpenShift Dev Spaces
+1) Login to OpenShift Dev Spaces or Eclipse Che
 
 2) Click username in top right and select User Preferences
 
@@ -115,7 +115,7 @@ Your Git user name and email should appear in the output.
 
 ## OpenShift Dev Spaces >=3.10 or Eclipse Che >=7.77
 
-1) Login to OpenShift Dev Spaces
+1) Login to OpenShift Dev Spaces or Eclipse Che
 
 2) Click username in top right and select User Preferences
 
