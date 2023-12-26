@@ -5,25 +5,25 @@
 
   vars:
     # username for private automation hub for EE or to password protected registry
-    registry_user: "USERNAME"
+    registry_user: USERNAME
     # password for private automation hub for EE or to password protected registry
-    registry_pass: "PASSWORD"
+    registry_pass: PASSWORD
     # password for code server, remove variable if not using auth with code server
-    code_server_pass: "PASSWORD"
+    code_server_pass: PASSWORD
     # username for development server
-    username: "ansible"
+    username: ansible
     # port for web server access
     dev_server_port: 443
     # folder to copy ssl certs from (built into EE or mounted at runtime) or localhost folder if running ansible-playbook
-    certandkeysourcefolder: "/certs/"
+    certandkeysourcefolder: /certs/
     # folder to create to deploy ssl certs to
-    certandkeydestfolder: "/etc/pki/tls/certs/"
+    certandkeydestfolder: /etc/pki/tls/certs/
     # name of certificate, delete if using self-signed
-    cert_name: "CERT.cer"
+    cert_name: CERT.cer
     # name of key, delete if using self-signed
-    key_name: "KEY.key"
+    key_name: KEY.key
     # specific image to pull to development server and assign in ansible-navigator.yml
-    ansible_image: "registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest"
+    ansible_image: registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
     # Deploy an inventory, group variables and host variables files from files folder in role
     deploy_inventory: true
     # Deploy an example repository with a basic role structure
@@ -33,7 +33,7 @@
     # Set version to be latest or the version you want to install
     version: latest
     # location of additional image store for shared storage, must be previously set up https://access.redhat.com/solutions/6206192. Remove if not using
-    additionalimagestores: "/var/lib/mycontainers-shared"
+    additionalimagestores: /var/lib/mycontainers-shared
 
   roles:
     - shadowman_dev_server

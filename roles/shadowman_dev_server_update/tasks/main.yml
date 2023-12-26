@@ -1,8 +1,8 @@
 ---
 - name: Discover latest version of code-server
   ansible.builtin.set_fact:
-    version: "{{ (lookup('url', 'https://api.github.com/repos/coder/code-server/releases/latest', headers=_github_api_headers,
-              split_lines=False) | from_json).get('tag_name') | replace('v', '') }}"
+    version: "{{ (lookup('url', 'https://api.github.com/repos/coder/code-server/releases/latest', headers=_github_api_headers, split_lines=False) | from_json).get('tag_name')
+      | replace('v', '') }}"
   run_once: true
   until: version is version('0.0.0', '>=')
   retries: 10
@@ -12,7 +12,7 @@
   ansible.builtin.get_url:
     url: "{{ codeserver_url }}"
     dest: /tmp/code-server.rpm
-    mode: '0440'
+    mode: "0440"
 
 - name: Install New Code-server
   ansible.builtin.dnf:

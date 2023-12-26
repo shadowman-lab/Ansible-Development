@@ -6,13 +6,13 @@
   vars:
     # remote user not needed if using shared storage
     # username for private automation hub for EE or to password protected registry
-    registry_user: "USERNAME"
+    registry_user: USERNAME
     # password for private automation hub for EE or to password protected registry
-    registry_pass: "PASSWORD"
+    registry_pass: PASSWORD
     # username for development server
-    username: "ansible"
+    username: ansible
     # specific image to assign in ansible-navigator.yml and ansible-extension
-    ansible_image: "registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:latest"
+    ansible_image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:latest
     # Deploy an inventory, group variables and host variables files from files folder in role
     deploy_inventory: true
     # Deploy an example repository with a basic role structure
@@ -20,9 +20,9 @@
     # Deploy an example repository using ansible-galaxy init
     deploy_ansiblegalaxy_repo: false
     # location of additional image store for shared storage, must be previously set up https://access.redhat.com/solutions/6206192. Remove if not using
-    additionalimagestores: "/var/lib/myee-shared"
+    additionalimagestores: /var/lib/myee-shared
     # Install VS Code locally on your laptop and then commit ID can be found in VS Code under "About Visual Studio Code"
-    commit_id: "1a5daa3a0231a0fbba4f14db7ec463cf99d7768e"
+    commit_id: 1a5daa3a0231a0fbba4f14db7ec463cf99d7768e
 
   roles:
     - shadowman_dev_vs_codeserver
