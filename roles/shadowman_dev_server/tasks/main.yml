@@ -1,8 +1,8 @@
 ---
 - name: Discover latest version of code-server
   ansible.builtin.set_fact:
-    version: "{{ (lookup('url', 'https://api.github.com/repos/coder/code-server/releases/latest', headers=_github_api_headers,
-              split_lines=False) | from_json).get('tag_name') | replace('v', '') }}"
+    version: "{{ (lookup('url', 'https://api.github.com/repos/coder/code-server/releases/latest', headers=_github_api_headers, split_lines=False) | from_json).get('tag_name')
+      | replace('v', '') }}"
   run_once: true
   until: version is version('0.0.0', '>=')
   retries: 10
@@ -12,7 +12,7 @@
   ansible.builtin.get_url:
     url: "{{ codeserver_url }}"
     dest: /tmp/code-server.rpm
-    mode: '0440'
+    mode: "0440"
 
 - name: Install Code Server
   ansible.builtin.dnf:
@@ -27,7 +27,7 @@
     state: directory
     owner: root
     group: root
-    mode: '0741'
+    mode: "0741"
   when: cert_name is defined
 
 - name: Copy Cert
@@ -36,7 +36,7 @@
     dest: "{{ certandkeydestfolder }}{{ cert_name }}"
     owner: root
     group: wheel
-    mode: '0644'
+    mode: "0644"
   when: cert_name is defined
 
 - name: Copy Key
@@ -45,7 +45,7 @@
     dest: "{{ certandkeydestfolder }}{{ key_name }}"
     owner: root
     group: wheel
-    mode: '0644'
+    mode: "0644"
   when: key_name is defined
 
 - name: Apply our systemd service file
@@ -54,26 +54,26 @@
     dest: /etc/systemd/system/code-server@{{ username }}.service
     owner: "{{ username }}"
     group: wheel
-    mode: '0744'
+    mode: "0744"
   notify: Restart_Codeserver
 
 - name: Ensure custom facts directory exists
   ansible.builtin.file:
-    path: "/home/{{ username }}/.local/share/code-server/User/"
+    path: /home/{{ username }}/.local/share/code-server/User/
     recurse: true
     state: directory
     owner: "{{ username }}"
 
 - name: Ensure settings directory exists
   ansible.builtin.file:
-    path: "/home/{{ username }}/.config/code-server/"
+    path: /home/{{ username }}/.config/code-server/
     recurse: true
     state: directory
     owner: "{{ username }}"
 
 - name: Ensure podman config location exists
   ansible.builtin.file:
-    path: "/home/{{ username }}/.config/containers/"
+    path: /home/{{ username }}/.config/containers/
     recurse: true
     state: directory
     owner: "{{ username }}"
@@ -81,21 +81,21 @@
 
 - name: Ensure ansible directory exists
   ansible.builtin.file:
-    path: "/home/{{ username }}/ansible/localplaybooks/"
+    path: /home/{{ username }}/ansible/localplaybooks/
     recurse: true
     state: directory
     owner: "{{ username }}"
 
 - name: Ensure ansible group vars folder exists
   ansible.builtin.file:
-    path: "/home/{{ username }}/ansible/group_vars/"
+    path: /home/{{ username }}/ansible/group_vars/
     recurse: true
     state: directory
     owner: "{{ username }}"
 
 - name: Ensure ansible host vars folder exists
   ansible.builtin.file:
-    path: "/home/{{ username }}/ansible/host_vars/"
+    path: /home/{{ username }}/ansible/host_vars/
     recurse: true
     state: directory
     owner: "{{ username }}"
@@ -103,60 +103,60 @@
 - name: Apply code server defaults
   ansible.builtin.template:
     src: settings.json.j2
-    dest: "/home/{{ username }}/.local/share/code-server/User/settings.json"
+    dest: /home/{{ username }}/.local/share/code-server/User/settings.json
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
 
 - name: Ensure bashrc is set for user
   ansible.builtin.template:
     src: .bashrc.j2
-    dest: "/home/{{ username }}/.bashrc"
+    dest: /home/{{ username }}/.bashrc
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
 
 - name: Apply code server settings
   ansible.builtin.template:
     src: config.yml.j2
-    dest: "/home/{{ username }}/.config/code-server/config.yaml"
+    dest: /home/{{ username }}/.config/code-server/config.yaml
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
   notify: Restart_Codeserver
 
 - name: Deploy ansible-navigator config
   ansible.builtin.template:
     src: ansible-navigator.yml.j2
-    dest: "/home/{{ username }}/ansible/ansible-navigator.yml"
+    dest: /home/{{ username }}/ansible/ansible-navigator.yml
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
 
 - name: Deploy inventory
   ansible.builtin.copy:
     src: inventory
-    dest: "/home/{{ username }}/ansible/inventory"
+    dest: /home/{{ username }}/ansible/inventory
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
   when: deploy_inventory
 
 - name: Deploy ansible group vars folder
   ansible.builtin.copy:
     src: files/group_vars/
-    dest: "/home/{{ username }}/ansible/group_vars/"
+    dest: /home/{{ username }}/ansible/group_vars/
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
   when: deploy_inventory
 
 - name: Deploy ansible host vars folder
   ansible.builtin.copy:
     src: files/host_vars/
-    dest: "/home/{{ username }}/ansible/host_vars/"
+    dest: /home/{{ username }}/ansible/host_vars/
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
   when: deploy_inventory
 
 - name: Install ansible extension
   become_user: "{{ username }}"
   become: true
-  ansible.builtin.command: "/bin/code-server --install-extension redhat.ansible"
+  ansible.builtin.command: /bin/code-server --install-extension redhat.ansible
   register: result
   changed_when: "'was successfully installed' in result.stdout"
 
@@ -185,9 +185,9 @@
 - name: Setup shared storage for podman images
   ansible.builtin.template:
     src: storage.conf.j2
-    dest: "/home/{{ username }}/.config/containers/storage.conf"
+    dest: /home/{{ username }}/.config/containers/storage.conf
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
   when: additionalimagestores is defined
 
 - name: Install ansible-navigator
@@ -226,7 +226,7 @@
   become: true
   become_user: "{{ username }}"
   ansible.builtin.git:
-    repo: 'https://github.com/shadowman-lab/Ansible-Example.git'
+    repo: https://github.com/shadowman-lab/Ansible-Example.git
     dest: /home/{{ username }}/ansible/ansible-example
     version: main
   when: deploy_example_repo
@@ -243,7 +243,7 @@
     src: /tmp/ansible-example/
     dest: /home/{{ username }}/ansible/ansible-example
     owner: "{{ username }}"
-    mode: '0644'
+    mode: "0644"
   when: deploy_ansiblegalaxy_repo
 
 - name: Open up correct port
@@ -255,13 +255,13 @@
 
 - name: Check if user is lingering
   ansible.builtin.stat:
-    path: "/var/lib/systemd/linger/{{ username }}"
+    path: /var/lib/systemd/linger/{{ username }}
   register: user_lingering
 
 - name: Enable lingering is needed
-  ansible.builtin.command: "loginctl enable-linger {{ username }}"
+  ansible.builtin.command: loginctl enable-linger {{ username }}
   when: not user_lingering.stat.exists
 
 - name: Display Weblink
   ansible.builtin.debug:
-    msg: "https://{{ inventory_hostname }}:{{ dev_server_port }}/?folder=/home/{{ username }}/ansible"
+    msg: https://{{ inventory_hostname }}:{{ dev_server_port }}/?folder=/home/{{ username }}/ansible
