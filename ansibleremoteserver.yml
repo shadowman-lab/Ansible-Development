@@ -4,7 +4,7 @@
   become: true
 
   vars:
-    # remote user not needed if using shared storage
+    # registry user not needed if using shared storage
     # username for private automation hub for EE or to password protected registry
     registry_user: USERNAME
     # password for private automation hub for EE or to password protected registry
