@@ -92,6 +92,7 @@
     recurse: true
     state: directory
     owner: "{{ username }}"
+  when: deploy_inventory
 
 - name: Ensure ansible host vars folder exists
   ansible.builtin.file:
@@ -99,6 +100,7 @@
     recurse: true
     state: directory
     owner: "{{ username }}"
+  when: deploy_inventory
 
 - name: Apply code server defaults
   ansible.builtin.template:
