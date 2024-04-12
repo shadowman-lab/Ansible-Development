@@ -102,12 +102,13 @@
   register: result
   changed_when: "'was successfully installed' in result.stdout"
 
-- name: Install podman and git and python 3.9
+- name: Install podman and git and python 3.11
   ansible.builtin.dnf:
     name:
       - podman
       - git
-      - python39
+      - python3.11
+      - python3.11-pip
     state: present
 
 - name: Setup shared storage for podman images
@@ -118,14 +119,16 @@
     mode: "0644"
   when: additionalimagestores is defined
 
-- name: Install ansible-navigator
+# ansible-dev tools includes ansible-builder, ansible-core, ansible-creator, ansible-dev-environment, ansible-lint
+# ansible-navigator, ansible-sign, molecule, pytest-ansible, tox-ansible
+- name: Install ansible-dev-tools
   become_user: "{{ username }}"
   become: true
   ansible.builtin.pip:
-    name: ansible-navigator
+    name: ansible-dev-tools
     state: present
     extra_args: --user
-    executable: pip3.9
+    executable: pip3.11
 
 - name: Allocate subuids for user
   subuid:
