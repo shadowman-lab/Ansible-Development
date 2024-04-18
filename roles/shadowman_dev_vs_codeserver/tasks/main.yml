@@ -98,7 +98,7 @@
 - name: Install ansible extension
   become_user: "{{ username }}"
   become: true
-  ansible.builtin.command: //home/{{ username }}/.vscode-server/bin/{{ commit_id }}/bin/code-server --install-extension redhat.ansible
+  ansible.builtin.command: /home/{{ username }}/.vscode-server/bin/{{ commit_id }}/bin/code-server --install-extension redhat.ansible
   register: result
   changed_when: "'was successfully installed' in result.stdout"
 
