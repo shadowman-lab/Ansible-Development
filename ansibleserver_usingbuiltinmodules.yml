@@ -33,7 +33,7 @@
     # Set version to be latest or the version you want to install
     version: latest
     # location of additional image store for shared storage, must be previously set up https://access.redhat.com/solutions/6206192. Remove if not using
-    additionalimagestores: /var/lib/mycontainers-shared
+    # additionalimagestores: /var/lib/mycontainers-shared
 
   roles:
     - shadowman_dev_server_builtin

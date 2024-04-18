@@ -8,7 +8,7 @@
 
 - name: Ensure VS code-server data directory exists
   ansible.builtin.file:
-    path: /home/{{ username }}//.vscode-server/data/Machine/
+    path: /home/{{ username }}/.vscode-server/data/Machine/
     recurse: true
     state: directory
     owner: "{{ username }}"
