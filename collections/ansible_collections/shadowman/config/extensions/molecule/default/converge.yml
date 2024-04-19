@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   gather_facts: true
-  connection: community.okd.oc
+  connection: redhat.openshift.oc
   tasks:
     - name: Perform Patching
       ansible.builtin.include_role:
