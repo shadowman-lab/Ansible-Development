@@ -10,11 +10,14 @@ driver:
     ansible_connection_options:
       connection: local
 platforms:
-  - name: rhel-ubi8-init-1
-    image: registry.access.redhat.com/ubi8/ubi@sha256:edc34f89cf9c818c2fb28b8ea1780f384db563ce4293dc0ab8e73ec01791e5af
+  - name: rhel-ubi7
+    image: registry.access.redhat.com/ubi7/ubi:latest
     workingDir: '/tmp'
-  - name: rhel-ubi7-init-1
-    image: registry.access.redhat.com/ubi7/ubi:7.9
+  - name: rhel-ubi8
+    image: registry.access.redhat.com/ubi8/ubi:latest
+    workingDir: '/tmp'
+  - name: rhel-ubi9
+    image: registry.access.redhat.com/ubi9/ubi:latest
     workingDir: '/tmp'
 provisioner:
   name: ansible

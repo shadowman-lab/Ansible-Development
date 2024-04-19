@@ -19,5 +19,5 @@ Update the variables at the top of the playbook you choose in order to set up an
 OpenShift DevSpaces Molecule Example
 1. Start OpenShift DevSpaces with this repo
 2. Open a terminal
-3. Navigate to /projects/ansible-development/collections/ansible_collections/shadowman/config/extension
+3. Navigate to /projects/ansible-development/collections/ansible_collections/shadowman/config/extensions
 4. Run "molecule test"
