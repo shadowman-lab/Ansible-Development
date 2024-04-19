@@ -7,7 +7,7 @@
   tasks:
 
     - name: Create RHEL instance as containers
-      community.okd.k8s:
+      redhat.openshift.k8s:
         kubeconfig: "{{ lookup('ansible.builtin.env', 'HOME') }}/.kube/config"
         state: present
         definition: "{{ lookup('template', 'templates/deployment.yml') | from_yaml }}"

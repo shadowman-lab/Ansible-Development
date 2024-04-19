@@ -39,6 +39,7 @@ verifier:
 scenario:
   name: default
   test_sequence:
+    - prepare
     - dependency
     - syntax
     - create

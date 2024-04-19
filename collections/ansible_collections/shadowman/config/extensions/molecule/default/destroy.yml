@@ -8,7 +8,7 @@
     # Developer must implement.
 
     - name: Destroy molecule containers
-      community.okd.k8s:
+      redhat.openshift.k8s:
         kubeconfig: "{{ lookup('ansible.builtin.env', 'HOME') }}/.kube/config"
         state: absent
         definition: "{{ lookup('template', 'templates/deployment.yml') | from_yaml }}"
