@@ -1,3 +1,5 @@
 ---
 collections:
-  - 'community.okd'
+  - name: redhat.openshift
+
+  - name: kubernetes.core
