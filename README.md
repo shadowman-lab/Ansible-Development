@@ -15,3 +15,9 @@ Update the variables at the top of the playbook you choose in order to set up an
 7. Establish a directory structure
 8. Deploy an inventory/host/group vars if desired
 9. Deploy an example repository with a role structure if desired (https://github.com/shadowman-lab/Ansible-Example)
+
+OpenShift DevSpaces Molecule Example
+1. Start OpenShift DevSpaces with this repo
+2. Open a terminal
+3. Navigate to /projects/ansible-development/collections/ansible_collections/shadowman/config/extension
+4. Run "molecule test"
