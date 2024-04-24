@@ -10,6 +10,10 @@ WORKDIR /tmp
 COPY shells /etc/shells
 COPY .bashrc /home/runner/.bashrc
 
+RUN /usr/bin/microdnf install python3.11 python3.11-pip -y
+
+RUN /usr/bin/python3.11 -m pip install --no-cache-dir ansible-dev-tools
+
 RUN printf "export CONTAINER_NAME=ansibleee\n" >> /home/runner/.bashrc
 
 RUN for dir in \
