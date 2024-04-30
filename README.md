@@ -1,4 +1,6 @@
 # Ansible-Development
+[![Contribute](https://www.eclipse.org/che/contribute.svg)](https://devspaces.apps.hypershift.shadowman.dev/#https://github.com/shadowman-lab/Ansible-Config)
+
 Repo to create an Ansible development server
 
 If you are able to utilize collections in your environment, use ansibleserver.yml
