@@ -139,7 +139,8 @@ Your Git user name and email should appear in the output.
 {
     "recommendations": [
       "redhat.ansible",
-      "redhat.vscode-yaml"
+      "redhat.vscode-yaml",
+      "redhat.vscode-redhat-account"
     ]
 }
 ```
