@@ -20,6 +20,9 @@
     state: present
     disable_gpg_check: true
 
+- name: Allow code-server to listen on port 443
+  ansible.builtin.command: setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
+
 - name: Find all running services
   ansible.builtin.service_facts:
 
