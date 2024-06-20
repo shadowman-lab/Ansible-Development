@@ -18,10 +18,10 @@
     certandkeysourcefolder: /certs/
     # folder to create to deploy ssl certs to
     certandkeydestfolder: /etc/pki/tls/certs/
-    # name of certificate, delete if using self-signed
-    cert_name: CERT.cer
-    # name of key, delete if using self-signed
-    key_name: KEY.key
+    # name of certificate, uncomment and update ifnot  using self-signed
+    # cert_name: CERT.cer
+    # name of key, uncomment and update ifnot  using self-signed
+    # key_name: KEY.key
     # specific image to pull to development server and assign in ansible-navigator.yml
     ansible_image: registry.redhat.io/ansible-automation-platform-23/ee-supported-rhel8:latest
     # Deploy an inventory, group variables and host variables files from files folder in role
