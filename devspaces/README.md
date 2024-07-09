@@ -67,6 +67,8 @@ git config --get-regexp user.*
 
 Your Git user name and email should appear in the output.
 
+## Note You can also use Ansible to create this git config https://github.com/shadowman-lab/Ansible-OpenShift/blob/main/roles/ocp_devspaces_git_config/tasks/main.yml
+
 ### Note if a workspace-userdata-gitconfig-configmap already exists, just update your existing config map per the YAML above
 
 ## OpenShift Dev Spaces >=3.10 or Eclipse Che >=7.75
