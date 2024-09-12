@@ -3,7 +3,7 @@ metadata:
   name: ansible-development
 components:
   - container:
-      # args: ['tail', '-f', '/dev/null']
+      args: ['tail', '-f', '/dev/null']
       image: 'quay.io/rhn_ssp_adworjan/ansibleee:1.0'
       memoryRequest: 256M
       memoryLimit: 6Gi
