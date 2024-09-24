@@ -218,3 +218,13 @@ spec:
     devfileRegistry:
       disableInternalRegistry: true
 ```
+
+# Dev Spaces Cleanup (Removing Stopped Workspaces)
+
+1) Create a playbook with a role similar to this in your repository: https://github.com/shadowman-lab/Ansible-OpenShift/blob/main/roles/openshift_devspaces_remove_stopped/tasks/main.yml
+
+## Note The commented out task should be used if you want to only remove workspaces if they've been stopped for a certain number of seconds. If so, you would want to remove the task after it which will delete all stopped workspaces
+
+2) Create a Job Template in the Ansible Automation Platform with your newly created playbook
+
+3) Create a schedule for this Job Template based on how often you want to run your removal playbook
