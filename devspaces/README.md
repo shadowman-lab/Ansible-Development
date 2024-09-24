@@ -223,7 +223,7 @@ spec:
 
 1) Create a playbook with a role similar to this in your repository: https://github.com/shadowman-lab/Ansible-OpenShift/blob/main/roles/openshift_devspaces_remove_stopped/tasks/main.yml
 
-## Note The commented out task should be used if you want to only remove workspaces if they've been stopped for a certain number of seconds. Use the variable timeinsecondsbeforedelete to set how long a workspace must be stopped for in order to delete, default is 2 days. If using the time stopped check, you would want to delete the next task in the role which will delete all stopped workspaces
+## Note: Use the variable timeinsecondsbeforedelete to set how long a workspace must be stopped for in order to delete, default is 2 days.
 
 2) Create a Job Template in the Ansible Automation Platform with your newly created playbook
 
