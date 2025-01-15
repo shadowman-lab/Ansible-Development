@@ -17,5 +17,7 @@ RUN /usr/bin/python3.11 -m pip install --no-cache-dir ansible-dev-tools
 RUN printf "export CONTAINER_NAME=ansibleee\n" >> /home/runner/.bashrc
 
 # In OpenShift, container will run as a random uid number and gid 0. Make sure things
-# are writeable by the root group.
-RUN chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home
+# are writeable by the root group and work with ansible-lint.
+RUN mkdir /.ansible && mkdir /.ansible/roles && mkdir /.ansible/collections && mkdir /.ansible/modules && touch /.ansible/.lock
+
+RUN chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home /.ansible/.lock
