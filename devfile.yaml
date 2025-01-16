@@ -4,9 +4,12 @@ metadata:
 components:
   - container:
       args: ['tail', '-f', '/dev/null']
-      image: 'quay.io/rhn_ssp_adworjan/ansibleee:1.0'
       memoryRequest: 256M
       memoryLimit: 6Gi
       cpuRequest: 250m
       cpuLimit: 2000m
+      image: ghcr.io/ansible/ansible-workspace-env-reference:latest
+      env:
+        - name: KUBEDOCK_ENABLED
+          value: "true"
     name: ansible
