@@ -16,5 +16,9 @@ components:
           value: 'tcp://127.0.0.1:2475'
         - name: KUBEDOCK_PARAMS
           value: "--image-pull-secrets devworkspace-container-registry-dockercfg"
-
+      endpoints:
+        - exposure: none
+          name: kubedock
+          protocol: tcp
+          targetPort: 2475
     name: ansible
