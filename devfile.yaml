@@ -12,4 +12,9 @@ components:
       env:
         - name: KUBEDOCK_ENABLED
           value: "true"
+        - name: PODMAN_HOST
+          value: 'tcp://127.0.0.1:2475'
+        - name: KUBEDOCK_PARAMS
+          value: "--image-pull-secrets devworkspace-container-registry-dockercfg"
+
     name: ansible
