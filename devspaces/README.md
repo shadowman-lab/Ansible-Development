@@ -79,7 +79,7 @@ Your Git user name and email should appear in the output.
 
 3) Select Gitconfig
 
-4) Enter in git username and e-mail
+4) Enter in git name and e-mail
 
 5) Select Save
 
