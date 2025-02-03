@@ -31,7 +31,7 @@ https://github.com/shadowman-lab/Ansible-PAH/tree/main/roles/build_shadowmandevs
 
 # Set Up Git Config:
 
-## OpenShift Dev Spaces <3.10 or Eclipse Che <7.75
+## OpenShift Dev Spaces <3.17
 
 1) Login to OpenShift or your Kubernetes Cluster
 
@@ -71,7 +71,7 @@ Your Git user name and email should appear in the output.
 
 ### Note if a workspace-userdata-gitconfig-configmap already exists, just update your existing config map per the YAML above
 
-## OpenShift Dev Spaces >=3.10 or Eclipse Che >=7.75
+## OpenShift Dev Spaces >=3.18
 
 1) Login to OpenShift Dev Spaces or Eclipse Che
 
@@ -79,9 +79,9 @@ Your Git user name and email should appear in the output.
 
 3) Select Gitconfig
 
-4) Click the Pencil icon next to name, update your Git name, and click the check icon
+4) Enter in git username and e-mail
 
-5) Click the Pencil icon next to email, update your Git email, and click the check icon
+5) Select Save
 
 6) You can verify once a new workspace is started by opening a new terminal and running
 
