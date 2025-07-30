@@ -219,7 +219,7 @@ spec:
       disableInternalRegistry: true
 ```
 
-# Dev Spaces Cleanup (Removing Stopped Workspaces)
+# Dev Spaces Cleanup Using Ansible(Removing Stopped Workspaces)
 
 1) Create a playbook with a role similar to this in your repository: https://github.com/shadowman-lab/Ansible-OpenShift/blob/main/roles/openshift_devspaces_remove_stopped/tasks/main.yml
 
@@ -228,3 +228,34 @@ spec:
 2) Create a Job Template in the Ansible Automation Platform with your newly created playbook
 
 3) Create a schedule for this Job Template based on how often you want to run your removal playbook
+
+# Dev Spaces Cleanup Using OpenShift(Removing Stopped Workspaces)
+
+1) Verify you have deployed DevWorkspace Operator version 0.34.0 or newer
+
+2) Create a DevWorkspaceOperatorConfig object as follows, ensure you use your Dev Spaces namespace
+
+```
+apiVersion: controller.devfile.io/v1alpha1
+kind: DevWorkspaceOperatorConfig
+metadata:
+  name: devworkspace-operator-config-cron
+  namespace: <namespace_that_contains_Dev_Spaces>
+config:
+  workspace:
+    cleanupCronJob:
+      enabled: true
+      dryRun: false
+      retainTime: 2592000
+      schedule: “0 0 1 * *”
+```
+
+Cleanup CronJob configuration fields:
+
+enable: Set to true to enable the cleanup job, false to disable it. Default: false.
+
+schedule: A Cron expression defining how often the cleanup job runs. Default: "0 0 1 * *" (first day of the month at midnight).
+
+retainTime: The duration time in seconds since a DevWorkspace was last started before it is considered stale and eligible for cleanup. Default: 2592000 seconds (30 days).
+
+dryRun: Set to true to run the cleanup job in dry-run mode. In this mode, the job logs which DevWorkspaces would be removed but does not actually delete them. Set to false to perform the actual deletion. Default: false.
