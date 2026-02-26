@@ -8,9 +8,9 @@ Eclipse Che Repo: https://github.com/eclipse-che/che-server
 
 OpenShift Developer Sandbox: https://developers.redhat.com/developer-sandbox/ide
 
-# Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces or Eclipse Che
+# Pre OCP 4.20 - Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces or Eclipse Che
 
-1) Modify the ContainerFile to utilize your Execution Environment. Make any changes to .bashrc for your terminal requirements.
+1) Modify the ContainerFile in olddevee to utilize your Execution Environment. Make any changes to .bashrc for your terminal requirements.
 
 2) Run
 ```
@@ -25,6 +25,26 @@ to modify your existing EE to work in Dev Spaces.
 3) Push the image to your container registry
 
 4) Modify the devfile.yaml and adjust for your registry and image
+
+# OCP 4.20 and newer - Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces or Eclipse Che
+
+1) Use the ContainerFile in this folder. It will allow you to run ansible-navigator and podman within a UBI, so the full ansible extension will work within DevSpaces.
+
+2) Run
+```
+podman build --tag YOURIMAGENAMEANDTAG -f Containerfile
+```
+For example
+```
+podman build --tag quay.io/rhn_ssp_adworjan/ansibleee:1.0 -f Containerfile
+```
+to modify your existing EE to work in Dev Spaces.
+
+3) Push the image to your container registry
+
+4) Modify the devfile.yaml and adjust for your registry and image
+
+5) Set up OpenShift Dev Spaces to work with nested containers in accordance with this readme: https://github.com/cgruver/ocp-4-20-nested-containers?tab=readme-ov-file
 
 ## Note: You could also take the two COPY steps and two RUN steps and include them in your execution-environment.yml to make this part of your EE build process
 https://github.com/shadowman-lab/Ansible-PAH/tree/main/roles/build_shadowmandevspaces

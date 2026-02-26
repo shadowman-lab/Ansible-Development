@@ -1,20 +1,36 @@
-# replace with your EE
-ARG EE_BASE_IMAGE=towerpah.shadowman.dev/shadowmanee:latest
-FROM $EE_BASE_IMAGE
+FROM registry.access.redhat.com/ubi9/ubi-minimal
 
-LABEL ansible-execution-environment=true
+ENV HOME=/projects/home
 
-USER root
-WORKDIR /tmp
+USER 0
 
-COPY shells /etc/shells
-COPY .bashrc /home/runner/.bashrc
+COPY --chown=0:0 entrypoint.sh /
+COPY --chown=0:0 set-cgroups.sh /
 
-# Use if you want to add in ansible developer tools like ansible-molecule and ansible-creator
-RUN /usr/bin/microdnf install ncurses python3.11 python3.11-pip -y
-RUN /usr/bin/python3.11 -m pip install --no-cache-dir ansible-dev-tools ansible-core\<2.19
+# Install base dependencies
+RUN microdnf --disableplugin=subscription-manager install -y procps-ng openssl git \
+        tar gzip zip xz shadow-utils bash podman podman-docker skopeo python3.11-pip \
+        python3.11-devel python3.11-requests jq wget which glibc-langpack-en \
+        ca-certificates aardvark-dns fuse-overlayfs util-linux sudo ; \
 
-RUN printf "export CONTAINER_NAME=ansibleee\n" >> /home/runner/.bashrc
-RUN mkdir /.ansible && mkdir /.ansible/roles && mkdir /.ansible/collections && mkdir /.ansible/modules && touch /.ansible/.lock
+    # Install ansible and related tools
+    pip-3.11 install --no-cache-dir ansible-dev-tools ; \
 
-RUN chgrp -R 0 /home && chmod -R g=u /etc/passwd /etc/group /home /.ansible/.lock
+    # Update complete image and cleanup
+    microdnf install -y catatonit ; \
+    microdnf update -y ; \
+    microdnf clean all
+
+RUN echo "user:x:1000:1000:devspaces user:${HOME}:/bin/bash" >> /etc/passwd ; \
+    echo "user:x:1000:" >> /etc/group ; \
+    chmod 600 /etc/shadow ; \
+    echo "user:*:0:0:99999:7:::" >> /etc/shadow ; \
+    echo "user:1001:64535" >> /etc/subuid ; \
+    echo "user:1001:64535" >> /etc/subgid ; \
+    setcap cap_setuid+ep /usr/bin/newuidmap ; \
+    setcap cap_setgid+ep /usr/bin/newgidmap ; \
+    echo "user ALL=NOPASSWD: /set-cgroups.sh" >> /etc/sudoers
+
+USER 1000
+ENTRYPOINT ["/usr/libexec/podman/catatonit","--","/entrypoint.sh"]
+CMD [ "tail", "-f", "/dev/null" ]
