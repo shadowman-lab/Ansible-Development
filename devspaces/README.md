@@ -171,7 +171,7 @@ Your Git user name and email should appear in the output.
 
 1) At the root of your repository, create a .code-workspace file
 
-2) Add any desired settings. These will overwrite any user settings so this is a good opportunity to set the desired EE and linting configuration for users
+2) Add any desired settings. These will overwrite any user settings so this is a good opportunity to set the desired EE and linting configuration for users. Ensure you update this example to use your repo, folder, and EE
 
 ```
 {
@@ -189,7 +189,13 @@ Your Git user name and email should appear in the output.
         "files.insertFinalNewline": true,
         "files.trimFinalNewlines": true,
         "files.trimTrailingWhitespace": true
-	}
+	},
+    "folders": [
+		{
+			"name": "ansible-development",
+			"path": "/projects/ansible-development"
+		}
+	]
 }
 ```
 
