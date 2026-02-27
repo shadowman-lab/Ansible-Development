@@ -167,6 +167,32 @@ Your Git user name and email should appear in the output.
 }
 ```
 
+# Create workspace level settings:
+
+1) At the root of your repository, create a .code-workspace file
+
+2) Add any desired settings. These will overwrite any user settings so this is a good opportunity to set the desired EE and linting configuration for users
+
+```
+{
+	"settings": {
+		"ansible.validation.enabled": true,
+		"ansible.validation.lint.enabled": true,
+        "ansible.ansible.useFullyQualifiedCollectionNames": true,
+        "ansible.executionEnvironment.image": "aap.shadowman.dev/shadowmanee:latest",
+        "ansible.executionEnvironment.enabled": true,
+        "ansible.python.interpreterPath": "/usr/bin/python3.11",
+        "files.associations": {
+            "*.yaml": "ansible",
+			"*.yml": "ansible"
+        },
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true
+	}
+}
+```
+
 # Update OpenShift Dev Spaces Dashboard Samples
 
 1) Login to OpenShift or your Kubernetes Cluster
