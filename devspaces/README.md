@@ -44,10 +44,19 @@ to modify your existing EE to work in Dev Spaces.
 
 4) Modify the devfile.yaml and adjust for your registry and image
 
-5) Set up OpenShift Dev Spaces to work with nested containers in accordance with this readme: https://github.com/cgruver/ocp-4-20-nested-containers?tab=readme-ov-file
+5) Set up OpenShift Dev Spaces to work with nested containers.
+## NOTE - With Dev Spaces 3.25+ container Run can be enabled directly in the CheCluster CR if in OCP 4.20 or newer
 
-## Note: You could also take the two COPY steps and two RUN steps and include them in your execution-environment.yml to make this part of your EE build process
-https://github.com/shadowman-lab/Ansible-PAH/tree/main/roles/build_shadowmandevspaces
+__Set the follwing in the CheCluster CR__
+
+```yaml
+spec:
+  ...
+  devEnvironments:
+    ...
+    disableContainerBuildCapabilities: false
+    disableContainerRunCapabilities: false
+```
 
 # Set Up Git Config:
 
