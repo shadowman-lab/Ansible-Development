@@ -1,20 +1,12 @@
 schemaVersion: 2.3.0
-attributes:
-  controller.devfile.io/storage-type: per-workspace
 metadata:
-  name: ansible-devspaces
+  name: ansible-development
 components:
-  - name: dev-tools
-    container:
-      image: ghcr.io/ansible/ansible-devspaces:latest
-      cpuLimit: 4000m
+  - container:
+      args: ['tail', '-f', '/dev/null']
+      image: 'quay.io/rhn_ssp_adworjan/ansibledevspaces:latest'
+      memoryRequest: 256M
+      memoryLimit: 6Gi
       cpuRequest: 250m
-      memoryRequest: 128Mi
-      memoryLimit: 8Gi
-      env:
-        - name: HOME
-          value: "/projects"
-        - name: VSCODE_DEFAULT_WORKSPACE
-          value: "/projects/ansible-devspaces/.code-workspace"
-        - name: "ADT_CONTAINER_ENGINE"
-          value: "podman"
+      cpuLimit: 2000m
+    name: ansible
