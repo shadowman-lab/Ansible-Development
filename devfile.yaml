@@ -6,7 +6,7 @@ metadata:
 components:
   - name: dev-tools
     container:
-      image: registry.redhat.io/ansible-automation-platform-27/ansible-devspaces-rhel9:latest
+      image: ghcr.io/ansible/ansible-devspaces:latest
       cpuLimit: 4000m
       cpuRequest: 250m
       memoryRequest: 128Mi
