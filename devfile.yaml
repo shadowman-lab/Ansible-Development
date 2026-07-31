@@ -1,10 +1,10 @@
 schemaVersion: 2.3.0
 metadata:
-  name: ansible-development
+  name: ansible-development # change this name per workspace
 components:
   - container:
       args: ['tail', '-f', '/dev/null']
-      image: 'quay.io/rhn_ssp_adworjan/ansibledevspaces:latest'
+      image: 'ghcr.io/ansible/ansible-devspaces:latest' # change for your devspaces image
       memoryRequest: 256M
       memoryLimit: 6Gi
       cpuRequest: 250m
