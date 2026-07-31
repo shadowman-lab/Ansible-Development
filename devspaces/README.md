@@ -47,7 +47,7 @@ to modify your existing EE to work in Dev Spaces.
 5) Set up OpenShift Dev Spaces to work with nested containers.
 ## NOTE - With Dev Spaces 3.25+ container Run can be enabled directly in the CheCluster CR if in OCP 4.20 or newer
 
-__Set the follwing in the CheCluster CR__
+__Set the following in the CheCluster CR__
 
 ```yaml
 spec:
