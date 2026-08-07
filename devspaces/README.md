@@ -26,7 +26,7 @@ to modify your existing EE to work in Dev Spaces.
 
 4) Modify the devfile.yaml and adjust for your registry and image
 
-# OCP 4.20 and newer - Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces or Eclipse Che
+# OCP 4.20 and newer - Modifying Permissions For Ansible-Lint And Bash To Work In OpenShift Dev Spaces or Eclipse Che if creating your own custom image. You can also use ghcr.io/ansible/ansible-devspaces:latest
 
 1) Use the ContainerFile in this folder. It will allow you to run ansible-navigator and podman within a UBI, so the full ansible extension will work within DevSpaces.
 
